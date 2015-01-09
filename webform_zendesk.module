@@ -32,9 +32,7 @@ function webform_zendesk_menu() {
 }
 
 /**
- * Callback function for Webform Field Mapping page
- * Does some pre-processing to separate out webform components and
- * then pass it on to the drupal_get_form function.
+ * Callback function for Webform Field Mapping page.
  */
 function webform_zendesk_components($node) {
   $webform = $node->webform;
@@ -67,12 +65,12 @@ function webform_zendesk_mapping_form($form, &$form_state, $components, $node_id
       '#type' => 'item',
       '#markup' => $field_label,
     );
-    $field_key = isset($saved_mapping['webform_field_mapping_' . $field_key]) ? $saved_mapping['webform_field_mapping_' . $field_key] :'';
+    $field_key_default = isset($saved_mapping['webform_field_mapping_' . $field_key]) ? $saved_mapping['webform_field_mapping_' . $field_key] : '';
     $form['webform_field_mapping_' . $field_key] = array(
       '#type' => 'select',
       '#options' => $components,
       '#required' => TRUE,
-      '#default_value' => $field_key,
+      '#default_value' => $field_key_default,
     );
   }
   $form['webform_nid'] = array(
@@ -126,8 +124,6 @@ function webform_zendesk_theme() {
 
 /**
  * Renders form to theme table.
- * @param type $vars
- * @return string
  */
 function theme_webform_zendesk_mapping_form($vars) {
   $output = '';
@@ -189,7 +185,7 @@ function webform_zendesk_webform_submission_presave($node, $submission) {
 }
 
 /**
- * Function to return the fields from Zendesk,
+ * Function to return the fields from Zendesk.
  */
 function webform_zendesk_get_all_fields() {
   $mapping_options = array(
