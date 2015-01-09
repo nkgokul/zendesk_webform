@@ -56,8 +56,6 @@ function webform_zendesk_mapping_form($form, &$form_state, $components, $node_id
     '#default_value' => isset($saved_mapping['mapping_enabled']) ? $saved_mapping['mapping_enabled'] : 0,
     '#description' => t('When enabled this webform will be submitted to ZenDesk for ticket creation.'),
   );
-  $mapping_options = webform_zendesk_get_all_fields();
-  $mapping_options['email_address'] = t('Email Address');
 
   $zendesk_fields = webform_zendesk_get_all_fields();
   foreach ($zendesk_fields as $field_key => $field_label) {
@@ -178,9 +176,9 @@ function webform_zendesk_webform_submission_presave($node, $submission) {
       'requester' => array(
         'name' => $webform_submission[$saved_mapping['webform_field_mapping_requester_name']],
         'email' => $webform_submission[$saved_mapping['webform_field_mapping_requester_email']],
-      )
+      ),
     );
-    $response = webform_zendesk_api_call(array('ticket' => $ticket), 'tickets.json');
+    webform_zendesk_api_call(array('ticket' => $ticket), 'tickets.json');
   }
 }
 
@@ -198,18 +196,19 @@ function webform_zendesk_get_all_fields() {
 }
 
 /**
- * Code reused from https://www.drupal.org/project/zendesk_forms module
+ * Code reused from https://www.drupal.org/project/zendesk_forms module.
+ *
  * Performs a call to the Zendesk API with the given data.
  *
- * @param array $data
- *   The data to be sent to the API endpoint.
- * @param string $command
- *   The command to call at the endpoint. Will be a filename like "tickets.json"
+ *   @param array $data
+ *     The data to be sent to the API endpoint.
+ *   @param string $command
+ *     The command to call at the endpoint. Will be a filename like "tickets.json"
  * or similar.
  * See http://developer.zendesk.com/documentation/rest_api/tickets.html and
  *
- * @return string
- *   The json response string.
+ *   @return string
+ *     The json response string.
  */
 function webform_zendesk_api_call($data, $command, $type = "POST") {
   $json = json_encode($data);

@@ -6,7 +6,6 @@
 
 /**
  * Form for Zendesk settings.
- *
  */
 function webform_zendesk_settings_form($form, &$form_state) {
   $form['webform_zendesk_url'] = array(
@@ -25,7 +24,7 @@ function webform_zendesk_settings_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('API key'),
     '#default_value' => variable_get('webform_zendesk_api_key', ''),
-    '#description' => t('You can get your API Key from https://mydomain.zendesk.com/agent/admin/api. You can read more about the details  !link', array('!link' => l( t('here'), 'https://support.zendesk.com/entries/21733618-api-key'))),
+    '#description' => t('You can get your API Key from https://mydomain.zendesk.com/agent/admin/api. You can read more about the details  !link', array('!link' => l(t('here'), 'https://support.zendesk.com/entries/21733618-api-key'))),
   );
   return system_settings_form($form);
 }
