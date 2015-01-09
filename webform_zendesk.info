@@ -1,0 +1,6 @@
+name = Webform ZenDesk Integration
+description = Maps Webform Fields To ZenDesk Fields and creates a ticket on Submission of Webform
+package = Webform
+dependencies[] = webform
+settings = admin/config/services/webform-zendesk
+core = 7.x
