@@ -2,18 +2,9 @@
 
 /**
  * @file
- * Modules file for Webform ZenDesk Integration
+ * Modules file for Webform ZenDesk Integration.
  * @author Gokul N K <gokul@azrisolutions.com>
  */
-
-/**
- * Implements hook_ctools_plugin_directory().
- */
-function webform_zendesk_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'zendesk_api') {
-    return 'plugins/zendesk_api/' . $plugin;
-  }
-}
 
 /**
  * Implements hook_menu().
