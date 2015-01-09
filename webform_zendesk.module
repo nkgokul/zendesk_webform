@@ -8,7 +8,6 @@
 
 /**
  * Implements hook_menu().
- * @return array
  */
 function webform_zendesk_menu() {
   $items = array();
@@ -27,14 +26,15 @@ function webform_zendesk_menu() {
     'page arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
     'access arguments' => array('administer webforms'),
-    'weight' => 5
+    'weight' => 5,
   );
   return $items;
 }
 
 /**
  * Callback function for Webform Field Mapping page
- * Does some pre-processing to separate out webform components and then pass it on to the drupal_get_form function
+ * Does some pre-processing to separate out webform components and
+ * then pass it on to the drupal_get_form function.
  */
 function webform_zendesk_components($node) {
   $webform = $node->webform;
@@ -48,7 +48,7 @@ function webform_zendesk_components($node) {
 }
 
 /**
- * Returns form Element
+ * Returns form Element.
  */
 function webform_zendesk_mapping_form($form, &$form_state, $components, $node_id) {
   $saved_mapping = webform_zendesk_get_saved_mapping($node_id);
@@ -65,14 +65,14 @@ function webform_zendesk_mapping_form($form, &$form_state, $components, $node_id
   foreach ($zendesk_fields as $field_key => $field_label) {
     $form['zendesk_field_' . $field_key] = array(
       '#type' => 'item',
-      '#markup' => $field_label
+      '#markup' => $field_label,
     );
+    $field_key = isset($saved_mapping['webform_field_mapping_' . $field_key]) ? $saved_mapping['webform_field_mapping_' . $field_key] :'';
     $form['webform_field_mapping_' . $field_key] = array(
       '#type' => 'select',
       '#options' => $components,
       '#required' => TRUE,
-      '#default_value' => isset($saved_mapping['webform_field_mapping_' . $field_key]) ?
-                                $saved_mapping['webform_field_mapping_' . $field_key] :'',
+      '#default_value' => $field_key,
     );
   }
   $form['webform_nid'] = array(
@@ -81,25 +81,25 @@ function webform_zendesk_mapping_form($form, &$form_state, $components, $node_id
   );
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => 'Save'
+    '#value' => 'Save',
   );
   $form['components'] = array(
     '#type' => 'hidden',
-    '#value' => $components
+    '#value' => $components,
   );
   $form['#theme'] = 'webform_zendesk_mapping_form';
   return $form;
 }
 
 /**
- * Validate function for webform_zendesk_mapping_form
+ * Validate function for webform_zendesk_mapping_form.
  */
 function webform_zendesk_mapping_form_validate($form, &$form_state) {
   // Check Email fields is mapped to email id only.
 }
 
 /**
- * Submit function for webform_zendesk_mapping_form
+ * Submit function for webform_zendesk_mapping_form.
  */
 function webform_zendesk_mapping_form_submit($form, &$form_state) {
   $nid = $form_state['values']['webform_nid'];
@@ -115,8 +115,7 @@ function webform_zendesk_mapping_form_submit($form, &$form_state) {
 }
 
 /**
- * Implements hook_theme;
- * @return array
+ * Implements hook_theme().
  */
 function webform_zendesk_theme() {
   $theme['webform_zendesk_mapping_form'] = array(
@@ -126,9 +125,9 @@ function webform_zendesk_theme() {
 }
 
 /**
- * Rendering form to theme table
+ * Renders form to theme table.
  * @param type $vars
- * @return html output
+ * @return string
  */
 function theme_webform_zendesk_mapping_form($vars) {
   $output = '';
@@ -144,17 +143,17 @@ function theme_webform_zendesk_mapping_form($vars) {
   }
   $options = array(
     'header' => $head,
-    'rows' => $rows
+    'rows' => $rows,
   );
 
   $output .= drupal_render_children($form['mapping_enabled']);
-  $output .= theme('table', $options); // Theme as table output
-  $output .= drupal_render_children($form); // Render rest of form components.
+  $output .= theme('table', $options);
+  $output .= drupal_render_children($form);
   return $output;
 }
 
 /**
- * Function to return the save mapping
+ * Function to return the save mapping.
  */
 function webform_zendesk_get_saved_mapping($node_id) {
   $result = db_query('SELECT wzm.value
@@ -190,7 +189,7 @@ function webform_zendesk_webform_submission_presave($node, $submission) {
 }
 
 /**
- * Function to return the fields from Zendesk
+ * Function to return the fields from Zendesk,
  */
 function webform_zendesk_get_all_fields() {
   $mapping_options = array(
@@ -212,8 +211,6 @@ function webform_zendesk_get_all_fields() {
  *   The command to call at the endpoint. Will be a filename like "tickets.json"
  * or similar.
  * See http://developer.zendesk.com/documentation/rest_api/tickets.html and
- * https:
- * https://support.zendesk.com/entries/21562288-Creating-a-Custom-HTML-Form-for-Ticket-Submission
  *
  * @return string
  *   The json response string.
