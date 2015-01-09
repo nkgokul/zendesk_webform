@@ -203,11 +203,10 @@ function webform_zendesk_get_all_fields() {
  * @param array $data
  *   The data to be sent to the API endpoint.
  * @param string $command
- *   The command to call at the endpoint. Will be a filename like "tickets.json"
- * or similar.
+ *   The command to call at the endpoint.Will be a filename like "tickets.json".
  *
- * @return string
- *   The json response string.
+ * @return array
+ *   The json response array.
  */
 function webform_zendesk_api_call($data, $command, $type = "POST") {
   $json = json_encode($data);
