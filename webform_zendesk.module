@@ -205,7 +205,6 @@ function webform_zendesk_get_all_fields() {
  * @param string $command
  *   The command to call at the endpoint. Will be a filename like "tickets.json"
  * or similar.
- * See http://developer.zendesk.com/documentation/rest_api/tickets.html and
  *
  * @return string
  *   The json response string.
