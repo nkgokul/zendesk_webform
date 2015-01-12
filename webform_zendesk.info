@@ -1,6 +1,6 @@
-name = Webform ZenDesk Integration
-description = Creates a ticket on Submission of Webform
+name = Webform Zendesk Integration
+description = Creates a ticket in Zendesk on submission of a Webform in Drupal
 package = Webform
 dependencies[] = webform
-settings = admin/config/services/webform-zendesk
 core = 7.x
+settings = admin/config/services/webform-zendesk
