@@ -208,7 +208,7 @@ function webform_zendesk_get_all_fields() {
  * @return array
  *   The json response array.
  */
-function webform_zendesk_api_call($data, $command, $type = "POST") {
+function webform_zendesk_api_call($data = array(), $command, $type = "POST") {
   $json = json_encode($data);
   $ch = curl_init();
   $zendesk_key = variable_get('zendesk_forms_api_key', '');
