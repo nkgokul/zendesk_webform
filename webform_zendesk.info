@@ -1,7 +1,6 @@
 name = Webform ZenDesk Integration
-description = Creates a ticket on Submission of Webform.
+description = Creates a ticket on Submission of Webform
 package = Webform
 dependencies[] = webform
 settings = admin/config/services/webform-zendesk
 core = 7.x
-
