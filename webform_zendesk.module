@@ -52,9 +52,9 @@ function webform_zendesk_mapping_form($form, &$form_state, $components, $node_id
   $saved_mapping = webform_zendesk_get_saved_mapping($node_id);
   $form['mapping_enabled'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable Submission to ZenDesk for this form'),
+    '#title' => t('Post the submissions for this Webform to ZenDesk'),
     '#default_value' => isset($saved_mapping['mapping_enabled']) ? $saved_mapping['mapping_enabled'] : 0,
-    '#description' => t('When enabled this webform will be submitted to ZenDesk for ticket creation.'),
+    '#description' => t('When enabled the submissions for this webform will be submitted to ZenDesk for ticket creation.'),
   );
 
   $zendesk_fields = webform_zendesk_get_all_fields();
@@ -211,9 +211,9 @@ function webform_zendesk_get_all_fields() {
 function webform_zendesk_api_call($data = array(), $command = 'tickets.json', $type = "POST") {
   $json = json_encode($data);
   $ch = curl_init();
-  $zendesk_key = variable_get('zendesk_forms_api_key', '');
-  $zendesk_url = variable_get('zendesk_forms_url', '');
-  $zendesk_user = variable_get('zendesk_forms_user_name', '');
+  $zendesk_key = variable_get('webform_zendesk_api_key', '');
+  $zendesk_url = variable_get('webform_zendesk_url', '');
+  $zendesk_user = variable_get('webform_zendesk_user_name', '');
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
   curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
   curl_setopt($ch, CURLOPT_URL, $zendesk_url . '/api/v2/' . $command);
