@@ -45,7 +45,7 @@ function webform_zendesk_schema() {
 /**
  * Implements hook_uninstall().
  */
-function zendesk_api_uninstall() {
+function webform_zendesk_uninstall() {
   variable_del('webform_zendesk_url');
   variable_del('webform_zendesk_api_key');
   variable_del('webform_zendesk_user_name');
